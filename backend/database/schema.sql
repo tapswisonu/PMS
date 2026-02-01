@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS comments (
     task_id INT NOT NULL,
     user_id INT NOT NULL,
     comment_text TEXT NOT NULL,
+    image_url LONGTEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE

@@ -38,6 +38,20 @@ exports.createTask = async (req, res) => {
     }
 };
 
+exports.updateTask = async (req, res) => {
+    const { id } = req.params;
+    const { title, description, assigned_to, status, due_date } = req.body;
+    try {
+        await db.query(
+            'UPDATE tasks SET title = ?, description = ?, assigned_to = ?, status = ?, due_date = ? WHERE id = ?',
+            [title, description, assigned_to, status, due_date, id]
+        );
+        res.json({ message: 'Task updated successfully', task: { id, title, description, assigned_to, status, due_date } });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 exports.updateTaskStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
