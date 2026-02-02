@@ -10,7 +10,12 @@ exports.getAllProjects = async (req, res) => {
 };
 
 exports.createProject = async (req, res) => {
-    const { title, description, start_date, end_date } = req.body;
+    let { title, description, start_date, end_date } = req.body;
+
+    // Handle empty date strings
+    if (!start_date) start_date = null;
+    if (!end_date) end_date = null;
+
     try {
         const [result] = await db.query(
             'INSERT INTO projects (title, description, start_date, end_date) VALUES (?, ?, ?, ?)',
